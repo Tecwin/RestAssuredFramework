@@ -8,15 +8,27 @@ import org.testng.ITestResult;
 
 
 
+import com.aventstack.extentreports.ExtentTest;
+
+import ApiAutomation.RestAssured.Reporting.ExtentReportManager;
+
+
+
 public class TestListener  implements ITestListener{
 	
 	private static final Logger LOGGER=LogManager.getLogger(TestListener.class);
+	
+	ExtentReportManager extentReports;
+	
+	ExtentTest test;
+	ThreadLocal<ExtentTest> extentTestLocal=new ThreadLocal<ExtentTest>();
 	
 	
 	public void onStart(ITestContext context) {
 		
 	    // not implemented
 		LOGGER.info("Test Suit Started");
+		ExtentReportManager.startTest(context.getName());
 	  }
 	
 	public void onTestSuccess(ITestResult result) {
@@ -38,6 +50,7 @@ public class TestListener  implements ITestListener{
 	public void onFinish(ITestContext context) {
 		    // not implemented
 		LOGGER.info("Test Suite Completed");
+		ExtentReportManager.endTest();
 		  }
 
 

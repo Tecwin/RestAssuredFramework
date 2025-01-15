@@ -3,6 +3,7 @@ package ApiAutomation.RestAssured.Filters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import ApiAutomation.RestAssured.Reporting.ExtentReportManager;
 import io.restassured.filter.Filter;
 import io.restassured.filter.FilterContext;
 import io.restassured.response.Response;
@@ -26,12 +27,14 @@ public class LoggingFilter implements Filter {
 		logger.info("Base URI: "+requestSpec.getBaseUri());
 		logger.info("Request Header: "+requestSpec.getHeaders());
 		logger.info("Request Body: "+requestSpec.getBody());
+		ExtentReportManager.LogRequest(requestSpec);
 	}
 	
 	public void logResponse(Response response) {
 		logger.info("Status Code: "+response.statusCode());
 		logger.info("Response header: "+response.headers());
 		logger.info("Response Body: "+response.getBody().asPrettyString());
+		ExtentReportManager.logResponse(response);
 		
 	}
 
